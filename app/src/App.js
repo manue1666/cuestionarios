@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import axios from "axios"
+import { Navigate } from "react-router-dom";
 
 
 const App = () => {
@@ -12,9 +14,15 @@ const App = () => {
     setData(loginData)
   }
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     //Peticion a la DB
-    console.log(data)
+    try {
+      await axios.post("http://localhost:4000/users/singin", data)
+      alert("informacion correcta")
+    } catch (error) {
+      alert("info incorrecta")
+    }
+
   }
 
   return (
