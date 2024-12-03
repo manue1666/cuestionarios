@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import axios from "axios"
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const App = () => {
   const [data, setData] = useState({});
+
+  const navigate = useNavigate();
 
   const onChange = (e) => {
     e.preventDefault();
@@ -17,9 +19,14 @@ const App = () => {
   const onSubmit = async () => {
     //Peticion a la DB
     try {
-      await axios.post("http://localhost:4000/users/singin", data)
-      alert("informacion correcta")
+      const res = await axios.post("http://localhost:4000/users/singin",data)
+      const user = res.data.user;
+      console.log(user)
+      user.logined = true
+      localStorage.user = JSON.stringify(user)
+      navigate("/list-q") 
     } catch (error) {
+      console.log(error)
       alert("info incorrecta")
     }
 

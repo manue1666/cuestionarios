@@ -6,6 +6,7 @@ export interface IUser {
     lastNames:string;
     password:string;
     rol: "administrator" | "client";
+
 }
 
 export interface IQuestion {

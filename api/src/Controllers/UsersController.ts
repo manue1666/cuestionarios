@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { UserModel } from "../Models/UsersModel";
 import jwt from "jsonwebtoken";
-
+ 
 
 export const registerUsers = async(req:Request, res: Response): Promise<void> => {
     try{
@@ -65,7 +65,7 @@ export const singIn= async(req:Request, res:Response):Promise<void>=>{
             return
         }
         const token= jwt.sign(JSON.stringify(user),"pocoyo");
-        res.status(200).json({msg:"exito al iniciar este es tu token:",token})
+        res.status(200).json({msg:"exito al iniciar este es tu token:",token,user})
         return
     } catch (error) {
         res.status(400).json({

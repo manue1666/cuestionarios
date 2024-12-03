@@ -42,16 +42,28 @@ const router = createBrowserRouter([
     element: <RegisterUser />,
   },
   {
-    path: "/create-questionnaires/:id",
+    path: "/create-questionnaires",
+    element: <CreateQuestionnaire />,
+  },
+  {
+    path: "/update-questionnaires/:id",
     element: <CreateQuestionnaire />,
   },
 ]);
-const user = {
-  name:"Jesus",
-  logined:true,
-  rol:"administrator"
-};
-localStorage.user = JSON.stringify(user);
+
+// const user = localStorage.user ? JSON.parse(localStorage.user) : undefined;
+
+let user;
+const storedUser = localStorage.getItem("user");
+
+if (storedUser && storedUser !== "undefined") {
+    try {
+        user = JSON.parse(storedUser);
+    } catch (error) {
+        console.error("Error parsing user from localStorage:", error);
+        user = undefined;
+    }
+} 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

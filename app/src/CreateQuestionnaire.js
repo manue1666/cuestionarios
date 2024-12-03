@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Card, Container, Form, Row, Col, Button, InputGroup, CloseButton, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import { AnwerQuestionnaire } from './components/AnwerQuestionnaire';
+import axios from 'axios';
 
 export const CreateQuestionnaire = () => {
 
@@ -9,7 +10,7 @@ export const CreateQuestionnaire = () => {
     const [createQuestionnaire, setCreateQuestionnaire] = useState({
         title: "Cuestionario vacio",
         description: "Descripcion simple",
-        questions: [
+        _questions: [
             {
                 title: "Pregunta sin titulo",
                 type: "radio",
@@ -60,8 +61,16 @@ export const CreateQuestionnaire = () => {
         setCreateQuestionnaire({ ...data });
     }
 
-    const sendData = () => {
+    const sendData = async () => {
         console.log(createQuestionnaire);
+        try {
+            await axios.post("http://localhost:4000/questionnaires/create", createQuestionnaire);
+            alert("se guardo con exito")
+
+        } catch (error) {
+            console.log(error)
+            alert("no se pudo guardar")
+        }
     }
 
     const onChangeOptionTitle = (e,iq,io)=>{

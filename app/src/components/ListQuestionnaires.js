@@ -1,57 +1,12 @@
-import React, { useEffect } from 'react'
-import { Card, Col, Container, Dropdown, Form, Row } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react'
+import { Card, Col, Container, Dropdown,Row } from 'react-bootstrap';
 
 export const ListQuestionnaires = ({ rol }) => {
 
-    const questionnaires = [
-        {
-            name: "Ejemplo 1",
-            description: "Esta es una descipcion de ejemplo"
-        },
-        {
-            name: "Ejemplo 1",
-            description: "Esta es una descipcion de ejemplo"
-        },
-        {
-            name: "Ejemplo 1",
-            description: "Esta es una descipcion de ejemplo"
-        },
-        {
-            name: "Ejemplo 1",
-            description: "Esta es una descipcion de ejemplo"
-        },
-        {
-            name: "Ejemplo 1",
-            description: "Esta es una descipcion de ejemplo"
-        },
-        {
-            name: "Ejemplo 1",
-            description: "Esta es una descipcion de ejemplo"
-        },
-        {
-            name: "Ejemplo 1",
-            description: "Esta es una descipcion de ejemplo"
-        },
-        {
-            name: "Ejemplo 1",
-            description: "Esta es una descipcion de ejemplo"
-        },
-        {
-            name: "Ejemplo 1",
-            description: "Esta es una descipcion de ejemplo"
-        },
-        {
-            name: "Ejemplo 1",
-            description: "Esta es una descipcion de ejemplo"
-        },
-        {
-            name: "Ejemplo 1",
-            description: "Esta es una descipcion de ejemplo"
-        },
-    ]
+    const [questionnaires, setQuestionnaires] = useState([]);
 
     useEffect(() => {
-        const url = rol == "administrator" ? "/api/get-all-questionnaires" : "/api/get-questionnaires-by-user";
+        const url = rol === "administrator" ? "/api/get-all-questionnaires" : "/api/get-questionnaires-by-user";
         //axios.get(url) -> Devuelve un objeto "data";
     }, [])
 
@@ -74,7 +29,7 @@ export const ListQuestionnaires = ({ rol }) => {
                                             </Card.Title>
                                         </Col>
                                         {
-                                            rol == "client" && (
+                                            rol === "client" && (
                                                 <Col className='text-center'>
                                                     <Dropdown variant="outline-primary">
                                                         <Dropdown.Toggle></Dropdown.Toggle>
