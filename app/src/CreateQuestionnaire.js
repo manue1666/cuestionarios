@@ -7,18 +7,19 @@ export const CreateQuestionnaire = () => {
 
     const [showQuestionnaire, setShowQuestionnaire] = useState(false);
 
+    const defaultQuestion = {
+        title: "Pregunta sin titulo",
+        type: "radio",
+        options: ["Opción 1"],
+        isMandatory: false,
+    }
+
     const [createQuestionnaire, setCreateQuestionnaire] = useState({
         title: "Cuestionario vacio",
         description: "Descripcion simple",
-        _questions: [
-            {
-                title: "Pregunta sin titulo",
-                type: "radio",
-                options: ["Opción 1"],
-                isMandatory: false,
-            }
-        ]
-    });
+        questions: [defaultQuestion],
+        userId:JSON.parse(localStorage.user)._id
+    })
 
     const onChangeTitle = (e) => {
         e.preventDefault();
@@ -40,11 +41,7 @@ export const CreateQuestionnaire = () => {
 
     const addQuestion = () => {
         const data = createQuestionnaire;
-        data.questions.push({
-            title: "Pregunta sin titulo",
-            type: "radio",
-            options: ["Opción 1"]
-        })
+        data.questions.push(defaultQuestion)
         setCreateQuestionnaire({ ...data })
     };
 
@@ -62,14 +59,12 @@ export const CreateQuestionnaire = () => {
     }
 
     const sendData = async () => {
-        console.log(createQuestionnaire);
         try {
-            await axios.post("http://localhost:4000/questionnaires/create", createQuestionnaire);
-            alert("se guardo con exito")
-
+            await axios.post("http://localhost:4000/questionnaires/create", createQuestionnaire)
+            alert("Cuestionario creado con exito")
         } catch (error) {
             console.log(error)
-            alert("no se pudo guardar")
+            alert("Todos tienen 10 por sonso yo >:C")
         }
     }
 
